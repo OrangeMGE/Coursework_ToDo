@@ -1,28 +1,17 @@
 import React , { Component } from 'react';
 import ReactDOM, { render } from 'react-dom';
+import '../index.css';
 
 
 export default class Registration extends Component {
-  state = {
-    isAuthorized : false
-  }
-
   render(){
-    if(this.state.isAuthorized){
-      return(
-        <div> Ok, this work </div>
-      )
-    }
     return(
-      <button onClick={this.buttonAction}>
-        {this.state.isAuthorized ? 'isAuth' : 'Not Auth'}
-      </button>
+      <form className='box' action='/login' method='POST' >
+        <h1> Login </h1>
+        <input type='text' name='' placeholder='Username' />
+        <input type='password' name='' placeholder='Password' />
+        <input type='submit' name='' value='Login' />
+      </form>
     )
-  }
-
-  buttonAction = () => {
-    this.setState({
-      isAuthorized : !this.state.isAuthorized
-    })
   }
 }

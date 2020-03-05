@@ -13,6 +13,7 @@ class Page extends Component {
   }
 }
 
+
 ReactDOM.render(<Page />, document.getElementById('root'));
 
 serviceWorker.unregister();
