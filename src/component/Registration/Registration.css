@@ -5,13 +5,17 @@ body {
   font-family: sans-serif;
   background: #34495E;
 }
+.parrent{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .box {
   width:300px;
   padding: 40px;
-  position: absolute;
-  top:50%;
-  left:50%;
-  transform: translate(-50%, -50%);
   background: #191919;
   text-align: center;
 }
@@ -62,6 +66,12 @@ body {
 }
 
 .title{
-  text-align: center;
   color: white;
+}
+
+.by {
+  align-self: flex-end;
+  margin-right: 7%;
+  color: orange;
+  font-family: 'WESTERN';
 }
