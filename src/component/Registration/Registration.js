@@ -39,16 +39,20 @@ function SendServerLoginForm() {
   }
   
   fetch('http://localhost:4000' + loginForm.urlCode, options) //Отправялем на сервер по адресу + url-форма
-  .then( response =>{
+  .then( response => {
     if(response.status !== 200) {
-      return Promise.reject();
+      return Promise.reject( response.status );
     }
     if(response.status == 200){
       console.log(response.text());
-      
-
       return Promise.resolve();
     }
   })
-  .catch(()=> console.log('Ошибка ==> ' + fetch.err))
+  .catch( (error_status) => {
+    if(error_status == 404){
+      console.log('Ошибка ==> ' + 'Учетная запись не найдена');
+    } else {
+      console.log('Ошибка ==> ' + 'Неизвестная ошибка');
+    }
+  })
 }

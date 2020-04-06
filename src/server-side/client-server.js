@@ -2,10 +2,14 @@ var http = require('http');
 var express = require('express')
 var app = express();
 var fs = require('fs'); //Файл-менеджер
+const sql = require('mssql'); //MS-SQL 
 
-const mysql = require("mysql2");
-
-
+const Database_config = {
+    server: "localhost",
+    user: "sa",
+    database: "course",
+    password: "Vetel123123GEOrange123123"
+}
 
 app.use((require,response,next) => {
     response.header("Access-Control-Allow-Origin","*");
@@ -20,12 +24,39 @@ app.use((require,response,next) => {
         username: require.params.username,
         password: require.params.password
     }
-    response.send(200);
+
+    let dataCheck = new Promise( (resolve,reject) => { //Промис, проверка на существование записи в БД
+        sql.connect(Database_config).then(() => {
+            return sql.query`select * from users where username=${usersGet.username} and password=${usersGet.password}`
+        }).then(result => {
+            //console.dir(result);
+            //console.log(result.recordset[0].password);
+
+            if(result.rowsAffected != 1) {
+                reject("User not found");
+            } else {
+                resolve("User found");
+            }
+        }).catch(err => {
+            console.log("Promise-[SQL] --> Error: " + err);
+            reject();
+        })
+    })
+    .then( (consoleInfo)=> { 
+        console.log("[Database] --> " + consoleInfo);
+        response.status(200).send("Succesful");  //Заменить
+    }) 
+    .catch( (err) => { 
+        console.log("[Database] --> " + err);
+        response.sendStatus(404)
+    })
 });
 
-function debugProcessing(urladdress) { 
+function debugProcessing(urladdress) {  //Дебаг в консоль
     console.log('        Processing -->  ' + urladdress);
 }
+
+
 
 const listningPort = 4000;
 app.listen(listningPort);
