@@ -17,14 +17,12 @@ export default class Registration extends Component {
     return(
       <div className={ styles.parrent }>
         <h1 className={ styles.title }>Task Manager</h1>
-        {status}
+        { status }
         <div className={ styles.box }>
           <h1> Login </h1>
           <input type='text' id='username' name='' placeholder='Username' />
           <input type='password' id='password' name='' placeholder='Password' />
-
           <input type='submit' name='' value='Login' onClick={this.SendServerLoginForm}/>
-
         </div>
         <div className={ styles.by }>
           <h2> By Orange </h2>
