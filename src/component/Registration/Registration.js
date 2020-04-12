@@ -1,18 +1,30 @@
 import React , { Component } from 'react';
-import ReactDOM from "react-dom";
 import styles from './Registration.css';
 
 
 export default class Registration extends Component {
-  render(){
+  constructor(props){
+    super(props)
+    this.state = {
+      serverResponseOfLogin: false
+    }
+    this.SendServerLoginForm = SendServerLoginForm.bind(this);
+  }
+
+  render() {
+    const status = this.state.serverResponseOfLogin && <h1 className={ styles.login_status }>Пользователь не найден</h1>;
+
     return(
-      <div className={styles.parrent}>
+      <div className={ styles.parrent }>
         <h1 className={ styles.title }>Task Manager</h1>
+        {status}
         <div className={ styles.box }>
           <h1> Login </h1>
           <input type='text' id='username' name='' placeholder='Username' />
           <input type='password' id='password' name='' placeholder='Password' />
-          <input type='submit' name='' value='Login' onClick={SendServerLoginForm}/>
+
+          <input type='submit' name='' value='Login' onClick={this.SendServerLoginForm}/>
+
         </div>
         <div className={ styles.by }>
           <h2> By Orange </h2>
@@ -21,7 +33,10 @@ export default class Registration extends Component {
     )
   }
 }
+
+
 function SendServerLoginForm() {
+  console.log('Send verify on server')
 
   let loginForm = {
     username: document.getElementById('username').value,
@@ -51,6 +66,9 @@ function SendServerLoginForm() {
   .catch( (error_status) => {
     if(error_status == 404){
       console.log('Ошибка ==> ' + 'Учетная запись не найдена');
+      this.setState({
+        serverResponseOfLogin: true
+      }) 
     } else {
       console.log('Ошибка ==> ' + 'Неизвестная ошибка');
     }

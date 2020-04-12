@@ -75,3 +75,7 @@ body {
   color: orange;
   font-family: 'WESTERN';
 }
+
+.login_status {
+  position: absolute;
+}
