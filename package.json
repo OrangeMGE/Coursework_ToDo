@@ -25,10 +25,10 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
-    "materialize-css": "^1.0.0-rc.2",
     "mssql": "^6.2.0",
     "react": "^16.13.0",
-    "react-dom": "^16.13.0"
+    "react-dom": "^16.13.0",
+    "react-router-dom": "^5.1.2"
   },
   "babel": {
     "presets": [

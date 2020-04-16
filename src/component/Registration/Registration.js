@@ -1,6 +1,6 @@
 import React , { Component } from 'react';
 import styles from './Registration.css';
-
+import { Route, BrowserRouter, Redirect, Switch, Link, withRouter } from "react-router-dom";
 
 export default class Registration extends Component {
   constructor(props){
@@ -72,3 +72,5 @@ function SendServerLoginForm() {
     }
   })
 }
+
+
