@@ -6,7 +6,15 @@ export default class Todo extends Component {
 
     render(){
         return(
-            <div> Testing message </div>
+            <div className= {styles.main} >
+                <header className = {styles.headerNav} > 
+                    <h1> ITracers task-manager</h1>
+                    <nav>
+                        <a className={styles.photoProfile}>  Picture </a>
+                    </nav>
+
+                </header>
+            </div>
         )
     }
 }
