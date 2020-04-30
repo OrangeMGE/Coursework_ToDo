@@ -2,7 +2,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Bangers', cursive;
+  font-size: 14px;
   background: #34495E;
 }
 .parrent{

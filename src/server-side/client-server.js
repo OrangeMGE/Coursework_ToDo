@@ -11,6 +11,15 @@ const Database_config = {
     password: "Vetel123123GEOrange123123"
 }
 
+let usersGet = {
+    id : 0,
+    username : "",
+    password : ""
+};
+
+console.log("\n\n\n");
+console.log("----------- Started -----------");
+
 app.use((require,response,next) => {
     response.header("Access-Control-Allow-Origin","*");
     response.header("Access-Control-Allow-Headers","Content-Type");
@@ -18,11 +27,11 @@ app.use((require,response,next) => {
         return response.status(200).send('ok');
     }
     next();
-}).get('/login&:username/:password', (require,response) => {
+}).get('/login&:username/:password', (require,response) => { //GET - Запрос на вход
     debugProcessing(require.url);
-    let usersGet = {
+    usersGet = {
         username: require.params.username,
-        password: require.params.password
+        password: require.params.password,
     }
 
     let dataCheck = new Promise( (resolve,reject) => { //Промис, проверка на существование записи в БД
@@ -30,8 +39,8 @@ app.use((require,response,next) => {
             return sql.query`select * from users where username=${usersGet.username} and password=${usersGet.password}`
         }).then(result => {
             //console.dir(result);
-            //console.log(result.recordset[0].password);
-
+            console.log("\nUser ID: " + result.recordset[0].id);
+            usersGet.id = result.recordset[0].id;
             if(result.rowsAffected != 1) {
                 reject("User not found");
             } else {
@@ -50,7 +59,27 @@ app.use((require,response,next) => {
         console.log("[Database] --> " + err);
         response.sendStatus(404)
     })
-});
+}).get('/todo', (require,response) => { //Запрос всех тасков
+    let dataCheck = new Promise( (resolve,reject) => {
+        sql.connect(Database_config).then(() => {
+            return sql.query`select * from usersTasks where id=${usersGet.id}`
+        }).then(result => {
+            console.dir(result);
+            resolve( result.recordsets[0] );
+        }).catch(err => {
+            console.log("Promise-[SQL] --> Error: " + err);
+            reject();
+        })
+    })
+    .then( (result)=> { 
+        console.log("[Database] --> Database is assigned ");
+        response.status(200).send(result);
+    }) 
+    .catch( (err) => { 
+        console.log("[Database] --> " + err);
+        response.sendStatus(404)
+    })
+})
 
 function debugProcessing(urladdress) {  //Дебаг в консоль
     console.log('        Processing -->  ' + urladdress);
@@ -60,4 +89,4 @@ function debugProcessing(urladdress) {  //Дебаг в консоль
 
 const listningPort = 4000;
 app.listen(listningPort);
-console.log('[Server] --> server is create\nListning ' + listningPort);
+console.log('[Server] --> server is create\nListning port: ' + listningPort);

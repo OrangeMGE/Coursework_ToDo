@@ -1,4 +1,4 @@
-.main {
+.headerMain{
     font-family: 'Bangers', cursive;
     font-size: 16px;
 }
@@ -7,13 +7,31 @@
 
 .headerNav {
     display: flex;
-
+    justify-content: space-around;
+    width: 100%;
+    height: 80px;
+    background-color: grey;
+    opacity: 0.9;
 }
 
-.photoProfile {
-    border: orange 1px solid;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    background-image: url('/dist/picture/glif.jpg');
-}
+.returnButton{
+    font-family: 'Bangers', cursive;
+    font-size: 16px;
+
+    border: 0;
+    background: none;
+    margin: 15px 10px 15px 10px;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+  }
+  .returnButton:hover{
+    background: #2ecc71;
+  }
+
+  

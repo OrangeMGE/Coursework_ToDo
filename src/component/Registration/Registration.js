@@ -58,6 +58,7 @@ function SendServerLoginForm() {
     }
     if(response.status == 200){
       console.log(response.text());
+      document.location.replace('/todo')
       return Promise.resolve();
     }
   })
@@ -71,6 +72,8 @@ function SendServerLoginForm() {
       console.log('Ошибка ==> ' + 'Неизвестная ошибка');
     }
   })
+
+
 }
 
 
